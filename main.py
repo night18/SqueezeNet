@@ -15,7 +15,7 @@ from tensorflow.keras.utils import to_categorical
 cifar_10_dir = "cifar-10"
 validation_number = 5000
 train_number = 50000 - validation_number
-epochs = 10
+epochs = 200
 
 def testModel(model, x_test, y_test, learning_rate):
 	score = model.evaluate(x_test, y_test)
@@ -46,7 +46,7 @@ def plot_performance(histories, name_list, isloss = True, isVal = False, isBoth 
 	plt.ylabel(perforemance)
 	plt.xlabel( "epochs" )
 	plt.legend( name_list , loc=0)
-	plt.show()
+	# plt.show()
 	fig.savefig(perforemance + '.png')
 
 
