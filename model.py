@@ -49,24 +49,24 @@ def squeezeNet(input_img):
 	x = Activation('relu', name='relu_conv1')(x)
 	x = MaxPool2D(pool_size=(3,3), strides=(2,2), name='pool1')(x)
 
-	x = fire_module(x, fire_id=2)
-	x = fire_module(x, fire_id=3)
-	x = fire_module(x, fire_id=4)		
+	x = fire_module(x, fire_id=2, squeeze=16, expand=64)
+	x = fire_module(x, fire_id=3, squeeze=16, expand=64)
+	x = fire_module(x, fire_id=4, squeeze=32, expand=128)		
 	x = MaxPool2D(pool_size=(3,3), strides=(2,2), name='pool2')(x)
 
-	x = fire_module(x, fire_id=5)
-	x = fire_module(x, fire_id=6)
-	x = fire_module(x, fire_id=7)
-	x = fire_module(x, fire_id=8)
+	x = fire_module(x, fire_id=5, squeeze=32, expand=128)
+	x = fire_module(x, fire_id=6, squeeze=48, expand=192)
+	x = fire_module(x, fire_id=7, squeeze=48, expand=192)
+	x = fire_module(x, fire_id=8, squeeze=64, expand=256)
 	x = MaxPool2D(pool_size=(3,3), strides=(2,2), name='pool3')(x)
 
-	x = fire_module(x, fire_id=9)
+	x = fire_module(x, fire_id=9, squeeze=64, expand=256)
 	x = Conv2D(10, kernel_size=(4,4), padding='same', name='conv10')(x)
-	x = Activation('relu', name='relu_conv10')(x)
-
-	x = Flatten()(x)
-	x = Dense(10)(x)
 	x = Activation('softmax', name='softmax')(x)
+
+	# x = Flatten()(x)
+	# x = Dense(10)(x)
+	# x = Activation('softmax', name='softmax')(x)
 
 	model = Model(inputs, x, name='squeezeNet')
 
