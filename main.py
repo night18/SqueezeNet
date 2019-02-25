@@ -13,7 +13,7 @@ import numpy as np
 from tensorflow.keras.utils import to_categorical
 
 cifar_10_dir = "cifar-10"
-validation_number = 5000
+validation_number = 10000
 train_number = 50000 - validation_number
 epochs = 200
 

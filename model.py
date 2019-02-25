@@ -7,7 +7,7 @@ Description: Train SqueezeNet network
 '''
 
 import tensorflow as tf
-from tensorflow.keras.layers import Input, Conv2D, Activation, concatenate, MaxPool2D, Flatten, Dense,  GlobalAveragePooling2D
+from tensorflow.keras.layers import Input, Conv2D, Activation, concatenate, MaxPool2D, Flatten, Dense,  GlobalAveragePooling2D, BatchNormalization
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.callbacks import ModelCheckpoint
@@ -61,11 +61,12 @@ def squeezeNet(input_img):
 	x = MaxPool2D(pool_size=(3,3), strides=(2,2), name='pool3')(x)
 
 	x = fire_module(x, fire_id=9, squeeze=64, expand=256)
+	x = BatchNormalization()(x)
 	x = Conv2D(10, kernel_size=(4,4), padding='same', name='conv10')(x)
 	x = Activation('relu', name='relu_conv10')(x)
 
 	x = GlobalAveragePooling2D()(x)
-	x = Flatten()(x)
+	# x = Flatten()(x)
 	# x = Dense(10)(x)
 	x = Activation('softmax', name='softmax')(x)
 
