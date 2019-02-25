@@ -61,11 +61,12 @@ def squeezeNet(input_img):
 	x = MaxPool2D(pool_size=(3,3), strides=(2,2), name='pool3')(x)
 
 	x = fire_module(x, fire_id=9, squeeze=64, expand=256)
-	x = Conv2D(1000, kernel_size=(4,4), padding='same', name='conv10')(x)
+	x = Conv2D(10, kernel_size=(4,4), padding='same', name='conv10')(x)
 	x = Activation('relu', name='relu_conv10')(x)
 
+	x = GlobalAveragePooling2D()(x)
 	x = Flatten()(x)
-	x = Dense(10)(x)
+	# x = Dense(10)(x)
 	x = Activation('softmax', name='softmax')(x)
 
 	model = Model(inputs, x, name='squeezeNet')
