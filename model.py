@@ -7,7 +7,7 @@ Description: Train SqueezeNet network
 '''
 
 import tensorflow as tf
-from tensorflow.keras.layers import Input, Conv2D, Activation, concatenate, MaxPool2D, Flatten, Dense
+from tensorflow.keras.layers import Input, Conv2D, Activation, concatenate, MaxPool2D, Flatten, Dense,  GlobalAveragePooling2D
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.callbacks import ModelCheckpoint
