@@ -11,6 +11,7 @@ from tensorflow.keras.layers import Input, Conv2D, Activation, concatenate, MaxP
 from tensorflow.keras.models import Model, save_model, load_model
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.callbacks import ModelCheckpoint
+from tensorflow.keras.utils import get_file
 import pickle
 
 sqz = 'sqz1'
@@ -43,6 +44,7 @@ def fire_module(prv_lyr, fire_id, squeeze = 3, expand = 4):
 	return cnct_layer
 
 def squeezeNet(input_img):
+	
 	inputs = Input(shape=(32,32,3))
 
 	x = Conv2D(96, kernel_size=(4,4), padding='same', name='conv1' )(inputs)
@@ -71,7 +73,8 @@ def squeezeNet(input_img):
 	x = Activation('softmax', name='softmax')(x)
 
 	model = Model(inputs, x, name='squeezeNet')
-
+	
+			
 	return model
 
 def trainModel(train_data, train_label, validation_data, validation_label, epochs=200, learning_rate=0.001 ):
@@ -119,9 +122,9 @@ def loadModel(learning_rate = 0.01):
 	
 	try:
 		model = load_model(
-		    h5_storage_path,
-		    custom_objects=None,
-		    compile=True
+			h5_storage_path,
+			custom_objects=None,
+			compile=True
 		)
 
 	except Exception as e:

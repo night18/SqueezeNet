@@ -66,6 +66,7 @@ if __name__ == '__main__':
 	name_list = []
 
 	for x in learning_rate_list:
+		tf.set_random_seed(1)
 		squeezenet = model.loadModel(learning_rate = x)
 		if squeezenet == None: 
 			squeezenet = model.trainModel(train_data, train_labels, validation_data, validation_labels, epochs=epochs, learning_rate=x)
