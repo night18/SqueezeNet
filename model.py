@@ -113,3 +113,19 @@ def trainModel(train_data, train_label, validation_data, validation_label, epoch
 	print("Successfully save the model at " + h5_storage_path)
 
 	return model
+
+def loadModel(learning_rate = 0.01):
+	h5_storage_path = models_dir + "/" + "squeezeNet_" + str(learning_rate) + ".h5"
+	
+	try:
+		model = load_model(
+		    h5_storage_path,
+		    custom_objects=None,
+		    compile=True
+		)
+
+	except Exception as e:
+		model = None
+		print(e)
+	finally:
+		return model

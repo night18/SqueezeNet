@@ -66,7 +66,9 @@ if __name__ == '__main__':
 	name_list = []
 
 	for x in learning_rate_list:
-		squeezenet = model.trainModel(train_data, train_labels, validation_data, validation_labels, epochs=epochs, learning_rate=x)
+		squeezenet = model.loadModel(learning_rate = x)
+		if squeezenet == None: 
+			squeezenet = model.trainModel(train_data, train_labels, validation_data, validation_labels, epochs=epochs, learning_rate=x)
 		testModel(squeezenet, test_data, test_labels, x)
 		path = "history/squeezeNet_{}".format(x)
 		histories.append( util.unpickle(path) )
@@ -74,4 +76,4 @@ if __name__ == '__main__':
 		name_list.append( name )
 		name_list.append( name + "_val" )
 
-	plot_performance(histories, name_list, isloss = True, isBoth = True)
+	plot_performance(histories, name_list, isloss = False, isBoth = True)
